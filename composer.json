@@ -1,5 +1,5 @@
 {
-    "name": "qktong/notice",
+    "name": "qktong/think-message",
     "description": "基于thinkphp6,发送通知 包括站内信，短信，钉钉等",
     "type": "library",
     "require": {
