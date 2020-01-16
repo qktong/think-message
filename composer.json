@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "qktong\\": "src"
+            "qktong\\message\\": "src"
         }
     },
     "extra": {
