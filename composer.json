@@ -1,7 +1,8 @@
 {
     "name": "qktong/think-message",
     "description": "基于thinkphp6,发送通知 包括站内信，短信，钉钉等",
-    "type": "library",
+    "type": "think-extend",
+    "license": "MIT",
     "require": {
         "overtrue/easy-sms": "^1.1"
     },
@@ -14,6 +15,16 @@
     "autoload": {
         "psr-4": {
             "qktong\\": "src"
+        }
+    },
+    "extra": {
+        "think": {
+            "config": {
+                "message": "config/message.php"
+            }
+        },
+        "think-config": {
+            "message": "config/message.php"
         }
     }
 }
