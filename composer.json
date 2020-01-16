@@ -1,0 +1,19 @@
+{
+    "name": "qktong/notice",
+    "description": "基于thinkphp6,发送通知 包括站内信，短信，钉钉等",
+    "type": "library",
+    "require": {
+        "overtrue/easy-sms": "^1.1"
+    },
+    "authors": [
+        {
+            "name": "qktong",
+            "email": "qktong@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "qktong\\": "src"
+        }
+    }
+}
