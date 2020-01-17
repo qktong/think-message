@@ -1,24 +1,16 @@
 <?php
-/*
- * 
- */
 
-namespace qktong\model;
+namespace qktong\message\model;
 
 use think\Model;
 
 class MsgTemplate extends Model
 {
-    // protected $connection='base';
-    // protected $connection;
-
-    public function __construct()
+    public function __construct(array $data = [])
     {
         $this->connection = config('message.database');
-        var_dump($this->connection);exit;
-        parent::__construct();
+        parent::__construct($data);
     }
-
 
     public function getContent($code)
     {

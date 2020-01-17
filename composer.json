@@ -20,11 +20,13 @@
     "extra": {
         "think": {
             "config": {
-                "message": "config/message.php"
+                "message": "config/message.php",
+                "easy_sms": "config/easy_sms.php"
             }
         },
         "think-config": {
-            "message": "config/message.php"
+            "message": "config/message.php",
+            "easy_sms": "config/easy_sms.php"
         }
     }
 }

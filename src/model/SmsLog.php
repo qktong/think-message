@@ -1,31 +1,40 @@
 <?php
 
-namespace app\base\model;
+namespace qktong\message\model;
 
 use think\Model;
 
 class SmsLog extends Model
 {
-    protected $connection = 'db.base';
-
-    public function addSmsLog($data)
+    public function __construct(array $data = [])
     {
+        $this->connection = config('message.database');
+        parent::__construct($data);
+    }
+
+    public function addLog($mobile, $content, $status)
+    {
+        $data              = [];
+        $data['mobile']    = $mobile;
+        $data['content']   = $content;
+        $data['status']    = $status;
+        $data['send_time'] = time();
         return $this->insert($data);
     }
 
-    public function getCount($where)
+    public function getCount()
     {
-        return $this->where($where)->count();
+        return $this->count();
     }
 
-    public function getSmsLog($where, $start, $page_size)
+    public function getSmsLog($page, $page_size)
     {
-        $result = $this->where($where)->field('id,merchant_id,sms_name,mobile,content,status,return_info,send_time,send_ip')->order('send_time desc')->limit($start, $page_size)->select();
-        foreach ($result as $key => $value) {
-            $result[$key] = $value->toArray();
-        }
-
+        $result = $this
+        ->field('id,mobile,content,status,send_time')
+        ->order('id desc')
+        ->limit($page, $page_size)
+        ->select()
+        ->toArray();
         return $result;
     }
-    
 }
