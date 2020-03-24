@@ -22,17 +22,30 @@ class SmsLog extends Model
         return $this->insert($data);
     }
 
-    public function getCount()
+    public function getCount($mobile = '', $status = '', $start_time = 0, $end_time = 0)
     {
-        return $this->count();
+        $where                          = [];
+        $mobile             && $where[] = ['mobile', '=',  $mobile];
+        is_numeric($status) && $where[] = ['status', '=',  $status];
+        $start_time > 0     && $where[] = ['send_time', '>=', $start_time];
+        $end_time   > 0     && $where[] = ['send_time', '<=', $end_time];
+        return $this->where($where)->count();
     }
 
-    public function getSmsLog($page, $page_size)
+    public function getSmsLog($page, $page_size, $mobile = '', $status = '', $start_time = 0, $end_time = 0)
     {
+        $where                          = [];
+        $mobile             && $where[] = ['mobile', '=',  $mobile];
+        is_numeric($status) && $where[] = ['status', '=',  $status];
+        $start_time > 0     && $where[] = ['send_time', '>=', $start_time];
+        $end_time   > 0     && $where[] = ['send_time', '<=', $end_time];
+
         $result = $this
         ->field('id,mobile,content,status,send_time')
+        ->where($where)
         ->order('id desc')
-        ->limit($page, $page_size)
+        ->limit($page_size)
+        ->page($page)
         ->select()
         ->toArray();
         return $result;

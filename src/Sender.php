@@ -23,7 +23,7 @@ class Sender
      * @param int $type   1：普通消息 2系统消息
      * @return mixed null没有发送 true发送成功 false 发送失败
      */
-    protected function send($sender_id, $receiver = [], $code, $params, $type = 1)
+    public function send($sender_id, $receiver = [], $code, $params, $type = 1)
     {
         $message = $this->getMessageContent($code, $params);
         if ($message == false) {
@@ -102,12 +102,17 @@ class Sender
         $error  = [];
         $result = false;
         try {
-            $easySms = new EasySms($config);
-            $result  = $easySms->send($mobile, [
-                'content'  => $message,
-                'template' => $template,
-                'data'     => $data,
-            ]);
+            if (env('APP_DEBUG') == false) {
+                // 调试模式不发短信
+                $easySms = new EasySms($config);
+                $result  = $easySms->send($mobile, [
+                    'content'  => $message,
+                    'template' => $template,
+                    'data'     => $data,
+                ]);
+            }else{
+                $message.='(调试模式不发送短信)';
+            }
         } catch (\Exception $exception) {
             $error = $exception->getExceptions();
             $debug = config('easy_sms.debug');
